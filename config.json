@@ -1,8 +1,8 @@
 {
-  "multiTask": true,
+  "multiTask": false,
   "taskCount": 5,
   "proxyAddress": "",
-  "messageTemplate": "[盖瑞]今日火花[加一]\n我的朋友，新年新气象！\n—— [右边] 每日一言 [左边] ——\n[API]",
+  "messageTemplate": "[呲牙][呲牙][呲牙]",
   "hitokotoTypes": [
     "文学",
     "影视",
@@ -10,7 +10,7 @@
     "哲学"
   ],
   "happyNewYear": {
-      "enabled": true,
+      "enabled": false,
       "messageTemplate": "【[data]|[data_lunar]】\n[烟花]今日专属祝福[福]：\n[API]"
   }
 }
