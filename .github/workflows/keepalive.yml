@@ -1,12 +1,15 @@
-name: Keepalive Workflow
+name: Re-enable workflows
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
-  keepalive:
+  enable-wf:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: gautamkrishnar/keepalive-workflow@v2
+      - name: Enable Workflows
+        # Replace main by the release of your choice
+        uses: fgerthoffert/actions-workflow-keepalive@main
+        with:
+          org: zencrepes
+          token: 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
