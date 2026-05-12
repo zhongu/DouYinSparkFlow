@@ -1,0 +1,69 @@
+name: DouYin Spark Flow Schedule Run
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * *" # Beijing time 09:00
+
+jobs:
+  run-main:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    environment: user-data
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Restore send checkpoint
+        id: checkpoint-cache
+        uses: actions/cache/restore@v4
+        with:
+          path: checkpoints/
+          key: douyin-checkpoint-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            douyin-checkpoint-${{ github.ref_name }}-
+            douyin-checkpoint-
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Test Douyin Accessibility
+        run: curl -I https://creator.douyin.com/
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Ensure browsers are installed
+        run: playwright install chromium --with-deps --only-shell
+
+      - name: Run DouYin Spark Flow
+        env:
+          USER_DATA: ${{ secrets.USER_DATA }}
+          DYSF_MAX_RUNTIME_SECONDS: "1080"
+        run: python main.py --doTask
+
+      - name: Save send checkpoint
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v4
+        with:
+          path: checkpoints/
+          key: douyin-checkpoint-${{ github.ref_name }}-${{ github.run_id }}
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: run-logs
+          path: |
+            logs/
+            checkpoints/
+
+  workflow-keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1

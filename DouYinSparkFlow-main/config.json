@@ -1,0 +1,16 @@
+{
+  "multiTask": false,
+  "taskCount": 5,
+  "proxyAddress": "",
+  "messageTemplate": "[呲牙][呲牙][呲牙]",
+  "hitokotoTypes": [
+    "文学",
+    "影视",
+    "诗词",
+    "哲学"
+  ],
+  "happyNewYear": {
+      "enabled": false,
+      "messageTemplate": "【[data]|[data_lunar]】\n[烟花]今日专属祝福[福]：\n[API]"
+  }
+}

@@ -1,0 +1,15 @@
+.venv/
+.venv*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.vscode/
+.idea/
+chrome/
+logs/
+checkpoints/
+.DS_Store
+Thumbs.db
+usersData.json
