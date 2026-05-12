@@ -32,3 +32,6 @@ usersData.json
 
 # Local installer/helper artifacts outside the source tree
 tools/
+
+# Legacy nested local directory after flattening the repository layout
+/DouYinSparkFlow-main/
